@@ -10,6 +10,15 @@ class HippodromeTest {
     }
 
     @Test
+    void constructorArgumentNullMessage() {
+        try {
+            new Hippodrome(null);
+        } catch (IllegalArgumentException e) {
+            assertEquals("Horses cannot be null.", e.getMessage());
+        }
+    }
+
+    @Test
     void getHorses() {
     }
 
