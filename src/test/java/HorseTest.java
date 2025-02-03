@@ -53,4 +53,9 @@ class HorseTest {
             assertEquals("Speed cannot be negative.", e.getMessage());
         }
     }
+
+    @Test
+    void constructorNegativeDistanceException() {
+        assertThrows(IllegalArgumentException.class, () -> new Horse("name", 0, -1));
+    }
 }
