@@ -2,11 +2,13 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EmptySource;
 import org.junit.jupiter.params.provider.ValueSource;
+import org.mockito.MockedStatic;
 
 import java.lang.reflect.Field;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.mockStatic;
 
 class HorseTest {
 
@@ -104,8 +106,20 @@ class HorseTest {
 
         distance.set(horse, 10.5);
         assertEquals(10.5, horse.getDistance());
+    }
 
+    @Test
+    void getDistanceTwoParametersConstructor() {
         Horse twoParametersHorse = new Horse("horse name", 0);
         assertEquals(0,twoParametersHorse.getDistance());
     }
+
+    @Test
+    void moveCallGetRandomDouble() {
+        try(MockedStatic<Horse> mockedStatic = mockStatic(Horse.class)) {
+            new Horse("name", 0, 0).move();
+            mockedStatic.verify(() -> Horse.getRandomDouble(0.2, 0.9));
+        }
+    }
+
 }
