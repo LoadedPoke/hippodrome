@@ -3,6 +3,8 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EmptySource;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import java.lang.reflect.Field;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -66,5 +68,14 @@ class HorseTest {
         } catch (IllegalArgumentException e) {
             assertEquals("Distance cannot be negative.", e.getMessage());
         }
+    }
+
+    @Test
+    void getName() throws NoSuchFieldException, IllegalAccessException {
+        Horse horse = new Horse("name", 0, 0);
+        Field name = Horse.class.getDeclaredField("name");
+        name.setAccessible(true);
+        String nameValue = (String) name.get(horse);
+        assertEquals("name", nameValue);
     }
 }
