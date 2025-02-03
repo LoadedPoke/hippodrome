@@ -3,8 +3,6 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EmptySource;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.MockedStatic;
-import org.mockito.Mockito;
-
 import java.lang.reflect.Field;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -117,7 +115,7 @@ class HorseTest {
 
     @Test
     void moveCallGetRandomDouble() {
-        try (MockedStatic<Horse> horseMockedStatic = Mockito.mockStatic(Horse.class)) {
+        try (MockedStatic<Horse> horseMockedStatic = mockStatic(Horse.class)) {
             new Horse("name", 0, 0).move();
             horseMockedStatic.verify(() -> Horse.getRandomDouble(0.2, 0.9));
         }
@@ -127,7 +125,7 @@ class HorseTest {
     @ValueSource(doubles = {0.3, 0.5, 0.8})
     void moveCalculatedDistance(double doubleValue) {
         Horse horse = new Horse("name", 1, 1);
-        try (MockedStatic<Horse> horseMockedStatic = Mockito.mockStatic(Horse.class)) {
+        try (MockedStatic<Horse> horseMockedStatic = mockStatic(Horse.class)) {
             horseMockedStatic.when(() -> Horse.getRandomDouble(0.2, 0.9)).thenReturn(doubleValue);
             double expectedDistance = 1 + 1 * doubleValue;
             horse.move();
