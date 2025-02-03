@@ -87,10 +87,25 @@ class HorseTest {
         Horse horse = new Horse("horse name", 5.2, 0);
         Field speed = Horse.class.getDeclaredField("speed");
         speed.setAccessible(true);
-        Double nameValue = (Double) speed.get(horse);
-        assertEquals(5.2, nameValue);
+        Double speedValue = (Double) speed.get(horse);
+        assertEquals(5.2, speedValue);
 
         speed.set(horse, 10.5);
         assertEquals(10.5, horse.getSpeed());
+    }
+
+    @Test
+    void getDistance() throws NoSuchFieldException, IllegalAccessException {
+        Horse horse = new Horse("horse name", 0, 5.2);
+        Field distance = Horse.class.getDeclaredField("distance");
+        distance.setAccessible(true);
+        Double distanceValue = (Double) distance.get(horse);
+        assertEquals(5.2, distanceValue);
+
+        distance.set(horse, 10.5);
+        assertEquals(10.5, horse.getDistance());
+
+        Horse twoParametersHorse = new Horse("horse name", 0);
+        assertEquals(0,twoParametersHorse.getDistance());
     }
 }
