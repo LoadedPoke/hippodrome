@@ -58,4 +58,13 @@ class HorseTest {
     void constructorNegativeDistanceException() {
         assertThrows(IllegalArgumentException.class, () -> new Horse("name", 0, -1));
     }
+
+    @Test
+    void constructorNegativeDistanceMessage() {
+        try {
+            new Horse("name", 0, -1);
+        } catch (IllegalArgumentException e) {
+            assertEquals("Distance cannot be negative.", e.getMessage());
+        }
+    }
 }
