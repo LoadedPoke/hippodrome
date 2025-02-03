@@ -26,6 +26,15 @@ class HippodromeTest {
     }
 
     @Test
+    void constructorEmptyListMessage() {
+        try {
+            new Hippodrome(new ArrayList<>());
+        } catch (IllegalArgumentException e) {
+            assertEquals("Horses cannot be empty.", e.getMessage());
+        }
+    }
+
+    @Test
     void getHorses() {
     }
 
