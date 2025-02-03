@@ -44,4 +44,13 @@ class HorseTest {
     void constructorNegativeSpeedException() {
         assertThrows(IllegalArgumentException.class, () -> new Horse("name", -1, 0));
     }
+
+    @Test
+    void constructorNegativeSpeedMessage() {
+        try {
+            new Horse("name", -1, 0);
+        } catch (IllegalArgumentException e) {
+            assertEquals("Speed cannot be negative.", e.getMessage());
+        }
+    }
 }
