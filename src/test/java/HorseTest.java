@@ -3,6 +3,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EmptySource;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.MockedStatic;
+import org.mockito.Mockito;
 
 import java.lang.reflect.Field;
 
@@ -111,14 +112,26 @@ class HorseTest {
     @Test
     void getDistanceTwoParametersConstructor() {
         Horse twoParametersHorse = new Horse("horse name", 0);
-        assertEquals(0,twoParametersHorse.getDistance());
+        assertEquals(0, twoParametersHorse.getDistance());
     }
 
     @Test
     void moveCallGetRandomDouble() {
-        try(MockedStatic<Horse> mockedStatic = mockStatic(Horse.class)) {
+        try (MockedStatic<Horse> horseMockedStatic = Mockito.mockStatic(Horse.class)) {
             new Horse("name", 0, 0).move();
-            mockedStatic.verify(() -> Horse.getRandomDouble(0.2, 0.9));
+            horseMockedStatic.verify(() -> Horse.getRandomDouble(0.2, 0.9));
+        }
+    }
+
+    @ParameterizedTest
+    @ValueSource(doubles = {0.3, 0.5, 0.8})
+    void moveCalculatedDistance(double doubleValue) {
+        Horse horse = new Horse("name", 1, 1);
+        try (MockedStatic<Horse> horseMockedStatic = Mockito.mockStatic(Horse.class)) {
+            horseMockedStatic.when(() -> Horse.getRandomDouble(0.2, 0.9)).thenReturn(doubleValue);
+            double expectedDistance = 1 + 1 * doubleValue;
+            horse.move();
+            assertEquals(expectedDistance, horse.getDistance());
         }
     }
 
