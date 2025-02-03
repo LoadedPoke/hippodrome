@@ -28,4 +28,15 @@ class HorseTest {
     void constructorBlankNameException(String name) {
         assertThrows(IllegalArgumentException.class, () -> new Horse(name, 0, 0));
     }
+
+    @ParameterizedTest
+    @EmptySource
+    @ValueSource(strings = {"  ", "\t", "\n"})
+    void constructorBlankNameMessage(String name) {
+        try {
+            new Horse(name, 0, 0);
+        } catch (IllegalArgumentException e) {
+            assertEquals("Name cannot be blank.", e.getMessage());
+        }
+    }
 }
