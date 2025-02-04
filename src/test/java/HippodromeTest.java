@@ -25,7 +25,8 @@ class HippodromeTest {
 
     @Test
     void constructorEmptyListException() {
-        assertThrows(IllegalArgumentException.class, () -> new Hippodrome(new ArrayList<>()));
+        List<Horse> list = new ArrayList<>();
+        assertThrows(IllegalArgumentException.class, () -> new Hippodrome(list));
     }
 
     @Test
