@@ -64,5 +64,12 @@ class HippodromeTest {
 
     @Test
     void getWinner() {
+        Horse horse1 = new Horse("name1", 1, 0);
+        Horse horse2 = new Horse("name2", 1, 5);
+        Horse horse3 = new Horse("name3", 1, 8.9999);
+        Horse horse4 = new Horse("name4", 1, 9);
+        Horse horse5 = new Horse("name5", 1, 8);
+        Hippodrome hippodrome = new Hippodrome(List.of(horse1, horse2, horse3, horse4, horse5));
+        assertSame(horse4, hippodrome.getWinner());
     }
 }
